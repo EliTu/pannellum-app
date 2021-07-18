@@ -3,6 +3,7 @@ import axios from "axios";
 import { Pannellum } from "pannellum-react";
 import { ApartmentData, ApartmentImageData, ApiData } from "./interfaces";
 import Explorer from "./components/Explorer/Explorer";
+import usePoll from "./hooks/usePoll";
 
 const URL =
   "https://899qp66n9k.execute-api.eu-west-1.amazonaws.com/default/buildots-equirect-assignment";
@@ -23,14 +24,11 @@ function App() {
       console.error(error.message);
     }
   }
-
   useEffect(() => {
-    // const interval = setInterval(() => {
     fetchData();
-    // }, 5000);
-
-    // () => clearInterval(interval);
   }, []);
+
+  usePoll(fetchData, 5000);
 
   console.log(selectedApartment);
 

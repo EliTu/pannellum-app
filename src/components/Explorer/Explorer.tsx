@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { ChangeEvent, useMemo } from "react";
 import ExplorerControls from "./ExplorerControls";
 import {
   ApartmentData,
@@ -24,19 +24,16 @@ export default function Explorer({
   setSelectedApartment,
   setSelectedImage,
 }: ExplorerProps) {
-  function handleSelectedApartment(e: any) {
+  function handleSelectedApartment(e: ChangeEvent<HTMLSelectElement>) {
     const selected = e.target.value;
     const newApartment = apartmentData.find(({ name }) =>
       name.includes(selected)
     );
-    if (selectedApartment === newApartment) return;
-
     setSelectedApartment(newApartment);
   }
 
-  function handleSelectedImageDate(e: any) {
+  function handleSelectedImageDate(e: ChangeEvent<HTMLSelectElement>) {
     const selectedDate = e.target.value;
-    console.log(selectedDate);
     const newSelectedDate = selectedApartment.images.find(
       ({ date }) => formatSelectedDate(date) === selectedDate
     );
