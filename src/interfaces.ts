@@ -1,9 +1,9 @@
 type ImageDataParameters = 'date' | 'id' | 'url';
-type ImageData = Record<ImageDataParameters, string>;
+export type ApartmentImageData = Record<ImageDataParameters, string>;
 
 export interface ApartmentData {
     name: string;
-    images: ImageData[];
+    images: ApartmentImageData[];
 }
 export interface ApiData {
     apartments: ApartmentData[];
@@ -13,4 +13,5 @@ export interface ExplorerSelectInput {
     label: string;
     options: string[];
     placeholder?: string;
+    props?: any;
 }
