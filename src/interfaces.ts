@@ -13,5 +13,5 @@ export interface ExplorerSelectInput {
     label: string;
     options: string[];
     placeholder?: string;
-    props?: any;
+    props?: React.SelectHTMLAttributes<HTMLSelectElement>;
 }

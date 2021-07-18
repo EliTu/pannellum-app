@@ -1,8 +1,12 @@
 import React, { useMemo } from "react";
 import ExplorerControls from "./ExplorerControls";
-import { ApartmentData, ExplorerSelectInput } from "../../interfaces";
-import setApartmentNumber from "../../utils/setApartmentNumber";
-import setSelectDate from "../../utils/setSelectDate";
+import {
+  ApartmentData,
+  ApartmentImageData,
+  ExplorerSelectInput,
+} from "../../interfaces";
+import getApartmentNumber from "../../utils/getApartmentNumber";
+import formatSelectedDate from "../../utils/formatSelectDate";
 
 interface ExplorerProps {
   apartmentData: ApartmentData[];
@@ -10,11 +14,15 @@ interface ExplorerProps {
   setSelectedApartment: React.Dispatch<
     React.SetStateAction<ApartmentData | undefined>
   >;
+  setSelectedImage: React.Dispatch<
+    React.SetStateAction<ApartmentImageData | undefined>
+  >;
 }
 export default function Explorer({
   selectedApartment,
   apartmentData,
   setSelectedApartment,
+  setSelectedImage,
 }: ExplorerProps) {
   function handleSelectedApartment(e: any) {
     const selected = e.target.value;
@@ -26,6 +34,16 @@ export default function Explorer({
     setSelectedApartment(newApartment);
   }
 
+  function handleSelectedImageDate(e: any) {
+    const selectedDate = e.target.value;
+    console.log(selectedDate);
+    const newSelectedDate = selectedApartment.images.find(
+      ({ date }) => formatSelectedDate(date) === selectedDate
+    );
+
+    setSelectedImage(newSelectedDate);
+  }
+
   const inputs: ExplorerSelectInput[] = useMemo(
     () => [
       {
@@ -34,7 +52,7 @@ export default function Explorer({
       },
       {
         label: "Apartment",
-        options: apartmentData.map(({ name }) => setApartmentNumber(name)),
+        options: apartmentData.map(({ name }) => getApartmentNumber(name)),
         props: {
           onChange: handleSelectedApartment,
         },
@@ -46,9 +64,12 @@ export default function Explorer({
       {
         label: "Date",
         options: selectedApartment.images
-          .map(({ date }) => setSelectDate(date))
+          .map(({ date }) => formatSelectedDate(date))
           .sort(),
         placeholder: "Choose date",
+        props: {
+          onChange: handleSelectedImageDate,
+        },
       },
       {
         label: "State",

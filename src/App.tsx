@@ -42,11 +42,12 @@ function App() {
             apartmentData={apartmentsData}
             setSelectedApartment={setSelectedApartment}
             selectedApartment={selectedApartment}
+            setSelectedImage={setSelectedImage}
           />
           <Pannellum
             width="100%"
             height="500px"
-            image={selectedApartment.images[0].url}
+            image={selectedImage?.url}
             pitch={10}
             yaw={180}
             hfov={110}
