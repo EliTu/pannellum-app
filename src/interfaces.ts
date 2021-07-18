@@ -15,3 +15,8 @@ export interface ExplorerSelectInput {
     placeholder?: string;
     props?: React.SelectHTMLAttributes<HTMLSelectElement>;
 }
+
+export interface SelectedApartmentData {
+    selectedApartment: ApartmentData;
+    selectedImage?: ApartmentImageData;
+}

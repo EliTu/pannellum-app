@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Pannellum } from "pannellum-react";
-import { ApartmentData, ApartmentImageData, ApiData } from "./interfaces";
+import { ApartmentData, ApiData, SelectedApartmentData } from "./interfaces";
 import Explorer from "./components/Explorer/Explorer";
 import usePoll from "./hooks/usePoll";
 
@@ -9,8 +9,7 @@ const URL =
   "https://899qp66n9k.execute-api.eu-west-1.amazonaws.com/default/buildots-equirect-assignment";
 function App() {
   const [apartmentsData, setApartmentsData] = useState<ApartmentData[]>();
-  const [selectedApartment, setSelectedApartment] = useState<ApartmentData>();
-  const [selectedImage, setSelectedImage] = useState<ApartmentImageData>();
+  const [selectedData, setSelectedData] = useState<SelectedApartmentData>();
 
   async function fetchData() {
     try {
@@ -18,7 +17,12 @@ function App() {
       if (status < 400) {
         const { apartments } = data;
         setApartmentsData(apartments);
-        setSelectedApartment(apartments[0]);
+        setSelectedData((prevData) => ({
+          ...prevData,
+          selectedApartment: !prevData?.selectedApartment
+            ? apartments[0]
+            : prevData.selectedApartment,
+        }));
       }
     } catch (error) {
       console.error(error.message);
@@ -30,46 +34,30 @@ function App() {
 
   usePoll(fetchData, 5000);
 
-  console.log(selectedApartment);
-
+  console.log(selectedData);
   return (
     <div className="App">
-      {apartmentsData && selectedApartment && (
+      {apartmentsData && selectedData && (
         <>
           <Explorer
             apartmentData={apartmentsData}
-            setSelectedApartment={setSelectedApartment}
-            selectedApartment={selectedApartment}
-            setSelectedImage={setSelectedImage}
+            selectedData={selectedData}
+            setSelectedData={setSelectedData}
           />
-          <Pannellum
-            width="100%"
-            height="500px"
-            image={selectedImage?.url}
-            pitch={10}
-            yaw={180}
-            hfov={110}
-            autoLoad
-            onLoad={() => {
-              console.log("panorama loaded");
-            }}
-          >
-            {/* <Pannellum.Hotspot
-            type="info"
-            pitch={11}
-            yaw={-167}
-            text="Info Hotspot Text 3"
-            URL="https://github.com/farminf/pannellum-react"
-          />
-
-          <Pannellum.Hotspot
-            type="info"
-            pitch={31}
-            yaw={-107}
-            text="Info Hotspot Text 4"
-            URL="https://github.com/farminf/pannellum-react"
-          /> */}
-          </Pannellum>
+          {selectedData.selectedImage && (
+            <Pannellum
+              width="100%"
+              height="500px"
+              image={selectedData.selectedImage?.url}
+              pitch={10}
+              yaw={180}
+              hfov={110}
+              autoLoad
+              onLoad={() => {
+                console.log("panorama loaded");
+              }}
+            />
+          )}
         </>
       )}
     </div>
