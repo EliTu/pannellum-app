@@ -8,3 +8,8 @@ export interface ApartmentData {
 export interface ApiData {
     apartments: ApartmentData[];
 }
+
+export interface ExplorerSelectInput {
+    label: string;
+    options: string[];
+}

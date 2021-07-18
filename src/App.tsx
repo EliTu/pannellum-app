@@ -5,7 +5,7 @@ import React, {
 import axios from 'axios';
 import { Pannellum } from "pannellum-react";
 import { ApartmentData, ApiData } from './interfaces';
-import './App.css';
+import Explorer from './components/Explorer/Explorer';
 
 const URL = 'https://899qp66n9k.execute-api.eu-west-1.amazonaws.com/default/buildots-equirect-assignment';
 function App() {
@@ -24,13 +24,19 @@ function App() {
   }
 
   useEffect(() => {
-    fetchData();
+    // const interval = setInterval(() => {
+      fetchData();
+    // }, 5000);
+
+    // () => clearInterval(interval);
   }, []);
 
   console.log(apartmentsData);
 
   return (<div className="App">
-    {apartmentsData && (<Pannellum
+    <Explorer />
+    {apartmentsData && (
+    <Pannellum
         width="100%"
         height="500px"
         image={apartmentsData[0].images[0].url}
