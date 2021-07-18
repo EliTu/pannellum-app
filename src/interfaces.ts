@@ -12,7 +12,6 @@ export interface ApiData {
 export interface ExplorerSelectInput {
     label: string;
     options: string[];
-    placeholder?: string;
     props?: React.SelectHTMLAttributes<HTMLSelectElement>;
 }
 

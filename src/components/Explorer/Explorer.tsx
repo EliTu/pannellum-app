@@ -82,7 +82,6 @@ export default function Explorer({
         options: selectedApartment.images
           .map(({ date }) => formatSelectedDate(date))
           .sort(),
-        placeholder: "Choose date",
         props: {
           onChange: handleSelectedImageDate,
         },

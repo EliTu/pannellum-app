@@ -7,14 +7,13 @@ interface ExplorerControlsProps {
 export default function ExplorerControls({ inputs }: ExplorerControlsProps) {
   return (
     <div>
-      {inputs.map(({ label, options, placeholder, props }) => (
+      {inputs.map(({ label, options, props }) => (
         <React.Fragment key={label}>
           <label htmlFor={label}>{label}:</label>
           <select name={label} id={label} {...props}>
+            {label === "Date" && <option>Select date</option>}
             {options.map((option) => (
-              <option key={option} placeholder={placeholder}>
-                {option}
-              </option>
+              <option key={option}>{option}</option>
             ))}
           </select>
         </React.Fragment>
