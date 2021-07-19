@@ -34,7 +34,6 @@ function App() {
 
   usePoll(fetchData, 5000);
 
-  console.log(selectedData);
   return (
     <div className="App">
       {apartmentsData && selectedData && (

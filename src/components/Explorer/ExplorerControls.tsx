@@ -3,8 +3,12 @@ import { ExplorerSelectInput } from "../../interfaces";
 
 interface ExplorerControlsProps {
   inputs: ExplorerSelectInput[];
+  isDateSelected: boolean;
 }
-export default function ExplorerControls({ inputs }: ExplorerControlsProps) {
+export default function ExplorerControls({
+  inputs,
+  isDateSelected,
+}: ExplorerControlsProps) {
   return (
     <div>
       {inputs.map(({ label, options, props }) => (
@@ -18,7 +22,7 @@ export default function ExplorerControls({ inputs }: ExplorerControlsProps) {
           </select>
         </React.Fragment>
       ))}
-      <button>Go</button>
+      <button disabled={!isDateSelected}>Go</button>
     </div>
   );
 }

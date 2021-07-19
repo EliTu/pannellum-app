@@ -24,7 +24,7 @@ export default function Explorer({
   const { selectedApartment } = selectedData;
   const [selectedApartmentValue, setSelectedApartmentValue] =
     useState<ApartmentData>(selectedApartment);
-  const [selectedImageValue, setSelectedImageValue] =
+  const [selectedDateValue, setSelectedDateValue] =
     useState<ApartmentImageData>();
 
   function handleSelectedApartment(e: ChangeEvent<HTMLSelectElement>) {
@@ -47,15 +47,15 @@ export default function Explorer({
       ({ date }) => formatSelectedDate(date) === selectedDate
     );
 
-    setSelectedImageValue(newSelectedDate);
+    setSelectedDateValue(newSelectedDate);
   }
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    if (selectedApartmentValue && selectedImageValue) {
+    if (selectedApartmentValue && selectedDateValue) {
       setSelectedData({
         selectedApartment: selectedApartmentValue,
-        selectedImage: selectedImageValue,
+        selectedImage: selectedDateValue,
       });
     }
   }
@@ -96,7 +96,10 @@ export default function Explorer({
 
   return (
     <form onSubmit={handleSubmit}>
-      <ExplorerControls inputs={inputs} />
+      <ExplorerControls
+        inputs={inputs}
+        isDateSelected={Boolean(selectedDateValue)}
+      />
     </form>
   );
 }
