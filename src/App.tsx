@@ -11,7 +11,7 @@ function App() {
   const [apartmentsData, setApartmentsData] = useState<ApartmentData[]>();
   const [selectedData, setSelectedData] = useState<SelectedApartmentData>();
 
-  async function fetchData() {
+  const fetchData = async () => {
     try {
       const { data, status } = await axios.get<ApiData>(URL);
       if (status < 400) {
@@ -27,7 +27,7 @@ function App() {
     } catch (error) {
       console.error(error.message);
     }
-  }
+  };
   useEffect(() => {
     fetchData();
   }, []);

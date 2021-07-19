@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useMemo, useState, useCallback } from "react";
+import React, {
+  ChangeEvent,
+  useMemo,
+  useState,
+  useCallback,
+  FormEvent,
+} from "react";
 import ExplorerControls from "./ExplorerControls";
 import {
   ApartmentData,
@@ -8,6 +14,7 @@ import {
 } from "../../interfaces";
 import getApartmentNumber from "../../utils/getApartmentNumber";
 import formatSelectedDate from "../../utils/formatSelectDate";
+import { ExplorerForm } from "./Styled";
 
 interface ExplorerProps {
   apartmentData: ApartmentData[];
@@ -56,7 +63,7 @@ export default function Explorer({
     [selectedApartment.images]
   );
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (selectedApartmentValue && selectedDateValue) {
       setSelectedData({
@@ -106,11 +113,12 @@ export default function Explorer({
   );
 
   return (
-    <form onSubmit={handleSubmit}>
+    <ExplorerForm onSubmit={handleSubmit}>
+      <span>Navigate:</span>
       <ExplorerControls
         inputs={inputs}
         isDateSelected={Boolean(selectedDateValue)}
       />
-    </form>
+    </ExplorerForm>
   );
 }

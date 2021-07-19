@@ -1,5 +1,6 @@
 import React from "react";
 import { ExplorerSelectInput } from "../../interfaces";
+import { ControlButton, ControlsContainer } from "./Styled";
 
 interface ExplorerControlsProps {
   inputs: ExplorerSelectInput[];
@@ -10,7 +11,7 @@ export default function ExplorerControls({
   isDateSelected,
 }: ExplorerControlsProps) {
   return (
-    <div>
+    <ControlsContainer>
       {inputs.map(({ label, options, props }) => (
         <React.Fragment key={label}>
           <label htmlFor={label}>{label}:</label>
@@ -22,7 +23,7 @@ export default function ExplorerControls({
           </select>
         </React.Fragment>
       ))}
-      <button disabled={!isDateSelected}>Go</button>
-    </div>
+      <ControlButton disabled={!isDateSelected}>Go</ControlButton>
+    </ControlsContainer>
   );
 }
