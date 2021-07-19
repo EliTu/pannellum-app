@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
-export default function usePoll(callback: Function, delay: number) {
-  const callbackRef = useRef<Function>();
+export default function usePoll(callback: () => void, delay: number) {
+  const callbackRef = useRef<() => void>();
 
   useEffect(() => {
     callbackRef.current = callback;

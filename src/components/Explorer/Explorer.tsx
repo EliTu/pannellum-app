@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useMemo, useState } from "react";
+import React, { ChangeEvent, useMemo, useState, useCallback } from "react";
 import ExplorerControls from "./ExplorerControls";
 import {
   ApartmentData,
@@ -27,30 +27,36 @@ export default function Explorer({
   const [selectedDateValue, setSelectedDateValue] =
     useState<ApartmentImageData>();
 
-  function handleSelectedApartment(e: ChangeEvent<HTMLSelectElement>) {
-    const selected = e.target.value;
-    const newApartment = apartmentData.find(({ name }) =>
-      name.includes(selected)
-    );
-    if (newApartment) {
-      setSelectedData((prevData) => ({
-        ...prevData,
-        selectedApartment: newApartment,
-      }));
-      setSelectedApartmentValue(newApartment);
-    }
-  }
+  const handleSelectedApartment = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      const selected = e.target.value;
+      const newApartment = apartmentData.find(({ name }) =>
+        name.includes(selected)
+      );
+      if (newApartment) {
+        setSelectedData((prevData) => ({
+          ...prevData,
+          selectedApartment: newApartment,
+        }));
+        setSelectedApartmentValue(newApartment);
+      }
+    },
+    [apartmentData, setSelectedData]
+  );
 
-  function handleSelectedImageDate(e: ChangeEvent<HTMLSelectElement>) {
-    const selectedDate = e.target.value;
-    const newSelectedDate = selectedApartment.images.find(
-      ({ date }) => formatSelectedDate(date) === selectedDate
-    );
+  const handleSelectedImageDate = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      const selectedDate = e.target.value;
+      const newSelectedDate = selectedApartment.images.find(
+        ({ date }) => formatSelectedDate(date) === selectedDate
+      );
 
-    setSelectedDateValue(newSelectedDate);
-  }
+      setSelectedDateValue(newSelectedDate);
+    },
+    [selectedApartment.images]
+  );
 
-  function handleSubmit(e: any) {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     if (selectedApartmentValue && selectedDateValue) {
       setSelectedData({
@@ -58,7 +64,7 @@ export default function Explorer({
         selectedImage: selectedDateValue,
       });
     }
-  }
+  };
 
   const inputs: ExplorerSelectInput[] = useMemo(
     () => [
@@ -91,7 +97,12 @@ export default function Explorer({
         options: ["After Building"],
       },
     ],
-    [apartmentData, selectedApartment]
+    [
+      apartmentData,
+      handleSelectedApartment,
+      handleSelectedImageDate,
+      selectedApartment.images,
+    ]
   );
 
   return (
