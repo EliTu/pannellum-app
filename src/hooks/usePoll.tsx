@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function usePoll(callback: () => void, delay: number) {
+export default function usePoll(callback: () => void, delay = 5000) {
   const callbackRef = useRef<() => void>();
 
   useEffect(() => {
@@ -14,9 +14,9 @@ export default function usePoll(callback: () => void, delay: number) {
       }
     }
 
-    if (delay !== null) {
-      const interval = setInterval(tick, delay);
-      return () => clearInterval(interval);
+    if (delay) {
+      const intervalId = setInterval(tick, delay);
+      return () => clearInterval(intervalId);
     }
   }, [callback, delay]);
 }

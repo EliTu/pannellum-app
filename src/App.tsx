@@ -7,6 +7,7 @@ import usePoll from "./hooks/usePoll";
 
 const URL =
   "https://899qp66n9k.execute-api.eu-west-1.amazonaws.com/default/buildots-equirect-assignment";
+
 function App() {
   const [apartmentsData, setApartmentsData] = useState<ApartmentData[]>();
   const [selectedData, setSelectedData] = useState<SelectedApartmentData>();
@@ -28,6 +29,7 @@ function App() {
       console.error(error.message);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
