@@ -2,7 +2,7 @@ import React, { ChangeEvent, useMemo, useState, useCallback, FormEvent } from 'r
 import ExplorerControls from './ExplorerControls';
 import { ApartmentData, ApartmentImageData, SelectedApartmentData } from '../../interfaces';
 import formatSelectedDate from '../../utils/formatSelectDate';
-import { ExplorerForm } from './Styled';
+import { ExplorerForm } from './ExplorerStyles';
 import setExplorerInputs from '../../utils/setExplorerInputs';
 
 interface ExplorerProps {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Pannellum } from 'pannellum-react';
 import { ApartmentData, ApiData, SelectedApartmentData } from './interfaces';
+import { AppContainer, MainContentContainer } from './AppStyles';
 import Explorer from './components/Explorer/Explorer';
 import usePoll from './hooks/usePoll';
 
@@ -37,9 +38,9 @@ function App() {
   usePoll(fetchData, 5000);
 
   return (
-    <div className="App">
+    <AppContainer>
       {apartmentsData && selectedData && (
-        <>
+        <MainContentContainer>
           <Explorer
             apartmentData={apartmentsData}
             selectedData={selectedData}
@@ -47,7 +48,7 @@ function App() {
           />
           {selectedData.selectedImage && (
             <Pannellum
-              width="100%"
+              width="90%"
               height="500px"
               image={selectedData.selectedImage?.url}
               pitch={10}
@@ -59,9 +60,9 @@ function App() {
               }}
             />
           )}
-        </>
+        </MainContentContainer>
       )}
-    </div>
+    </AppContainer>
   );
 }
 

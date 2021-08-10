@@ -1,6 +1,6 @@
 import React from 'react';
 import { ExplorerSelectInput } from '../../interfaces';
-import { ControlSelectInput } from './Styled';
+import { ControlSelectInput } from './ExplorerStyles';
 
 export default function SelectController({ label, options, props }: ExplorerSelectInput) {
   return (

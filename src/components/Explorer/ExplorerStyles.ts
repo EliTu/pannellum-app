@@ -11,19 +11,19 @@ export const ExplorerForm = styled.form`
   border-radius: 10px;
 
   span {
-    font-size: 20px;
+    font-size: 18px;
     padding: 0.3rem;
     margin-right: 5px;
   }
 `;
 
 export const ControlsContainer = styled.div`
-  width: 80%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.3rem 0.5rem;
-  background-color: #0237acdf;
+  background-color: #001e5edf;
   border-radius: 10px;
   color: #ffffff;
   font-size: 16px;
