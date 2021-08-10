@@ -1,46 +1,25 @@
-import React, {
-  ChangeEvent,
-  useMemo,
-  useState,
-  useCallback,
-  FormEvent,
-} from "react";
-import ExplorerControls from "./ExplorerControls";
-import {
-  ApartmentData,
-  ApartmentImageData,
-  ExplorerSelectInput,
-  SelectedApartmentData,
-} from "../../interfaces";
-import getApartmentNumber from "../../utils/getApartmentNumber";
-import formatSelectedDate from "../../utils/formatSelectDate";
-import { ExplorerForm } from "./Styled";
-import setExplorerInputs from "../../utils/setExplorerInputs";
+import React, { ChangeEvent, useMemo, useState, useCallback, FormEvent } from 'react';
+import ExplorerControls from './ExplorerControls';
+import { ApartmentData, ApartmentImageData, SelectedApartmentData } from '../../interfaces';
+import formatSelectedDate from '../../utils/formatSelectDate';
+import { ExplorerForm } from './Styled';
+import setExplorerInputs from '../../utils/setExplorerInputs';
 
 interface ExplorerProps {
   apartmentData: ApartmentData[];
   selectedData: SelectedApartmentData;
-  setSelectedData: React.Dispatch<
-    React.SetStateAction<SelectedApartmentData | undefined>
-  >;
+  setSelectedData: React.Dispatch<React.SetStateAction<SelectedApartmentData | undefined>>;
 }
-export default function Explorer({
-  apartmentData,
-  selectedData,
-  setSelectedData,
-}: ExplorerProps) {
+export default function Explorer({ apartmentData, selectedData, setSelectedData }: ExplorerProps) {
   const { selectedApartment } = selectedData;
   const [selectedApartmentValue, setSelectedApartmentValue] =
     useState<ApartmentData>(selectedApartment);
-  const [selectedDateValue, setSelectedDateValue] =
-    useState<ApartmentImageData>();
+  const [selectedDateValue, setSelectedDateValue] = useState<ApartmentImageData>();
 
   const handleSelectedApartment = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
       const selected = e.target.value;
-      const newApartment = apartmentData.find(({ name }) =>
-        name.includes(selected)
-      );
+      const newApartment = apartmentData.find(({ name }) => name.includes(selected));
       if (newApartment) {
         setSelectedData((prevData) => ({
           ...prevData,
@@ -82,21 +61,13 @@ export default function Explorer({
         handleSelectedApartment,
         handleSelectedImageDate
       ),
-    [
-      apartmentData,
-      handleSelectedApartment,
-      handleSelectedImageDate,
-      selectedApartment,
-    ]
+    [apartmentData, handleSelectedApartment, handleSelectedImageDate, selectedApartment]
   );
 
   return (
     <ExplorerForm onSubmit={handleSubmit}>
       <span>Navigate:</span>
-      <ExplorerControls
-        inputs={ExplorerSelectInputs}
-        isDateSelected={Boolean(selectedDateValue)}
-      />
+      <ExplorerControls inputs={ExplorerSelectInputs} isDateSelected={Boolean(selectedDateValue)} />
     </ExplorerForm>
   );
 }

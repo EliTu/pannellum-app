@@ -1,17 +1,14 @@
-import React from "react";
-import SelectController from "./SelectController";
-import { ExplorerSelectInput } from "../../interfaces";
-import { ControlButton, ControlsContainer } from "./Styled";
+import React from 'react';
+import SelectController from './SelectController';
+import { ExplorerSelectInput } from '../../interfaces';
+import { ControlButton, ControlsContainer } from './Styled';
 
 interface ExplorerControlsProps {
   inputs: ExplorerSelectInput[];
   isDateSelected: boolean;
 }
 
-export default function ExplorerControls({
-  inputs,
-  isDateSelected,
-}: ExplorerControlsProps) {
+export default function ExplorerControls({ inputs, isDateSelected }: ExplorerControlsProps) {
   return (
     <ControlsContainer>
       {inputs.map((inputProps) => (

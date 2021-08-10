@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Pannellum } from "pannellum-react";
-import { ApartmentData, ApiData, SelectedApartmentData } from "./interfaces";
-import Explorer from "./components/Explorer/Explorer";
-import usePoll from "./hooks/usePoll";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Pannellum } from 'pannellum-react';
+import { ApartmentData, ApiData, SelectedApartmentData } from './interfaces';
+import Explorer from './components/Explorer/Explorer';
+import usePoll from './hooks/usePoll';
 
 const URL =
-  "https://899qp66n9k.execute-api.eu-west-1.amazonaws.com/default/buildots-equirect-assignment";
+  'https://899qp66n9k.execute-api.eu-west-1.amazonaws.com/default/buildots-equirect-assignment';
 
 function App() {
   const [apartmentsData, setApartmentsData] = useState<ApartmentData[]>();
@@ -55,7 +55,7 @@ function App() {
               hfov={110}
               autoLoad
               onLoad={() => {
-                console.log("panorama loaded");
+                console.log('panorama loaded');
               }}
             />
           )}

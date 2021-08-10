@@ -1,4 +1,4 @@
 export default function getApartmentNumber(name: string) {
-     const apartmentNumber = name.split(' ')[1];
-     return apartmentNumber;
+  const apartmentNumber = name.split(' ')[1];
+  return apartmentNumber;
 }

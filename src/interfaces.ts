@@ -1,6 +1,4 @@
-import { ChangeEvent } from "react";
-
-type ImageDataParameters = "date" | "id" | "url";
+type ImageDataParameters = 'date' | 'id' | 'url';
 export type ApartmentImageData = Record<ImageDataParameters, string>;
 
 export interface ApartmentData {

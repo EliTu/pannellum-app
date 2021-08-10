@@ -1,7 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -9,5 +9,5 @@ ReactDOM.render(
       <App />
     </ErrorBoundary>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
