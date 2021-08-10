@@ -15,6 +15,7 @@ import {
 import getApartmentNumber from "../../utils/getApartmentNumber";
 import formatSelectedDate from "../../utils/formatSelectDate";
 import { ExplorerForm } from "./Styled";
+import setExplorerInputs from "../../utils/setExplorerInputs";
 
 interface ExplorerProps {
   apartmentData: ApartmentData[];
@@ -73,42 +74,19 @@ export default function Explorer({
     }
   };
 
-  const inputs: ExplorerSelectInput[] = useMemo(
-    () => [
-      {
-        label: "Floor",
-        options: ["2"],
-      },
-      {
-        label: "Apartment",
-        options: apartmentData.map(({ name }) => getApartmentNumber(name)),
-        props: {
-          onChange: handleSelectedApartment,
-        },
-      },
-      {
-        label: "Room",
-        options: ["Kitchen", "Livingroom", "Bathroom"],
-      },
-      {
-        label: "Date",
-        options: selectedApartment.images
-          .map(({ date }) => formatSelectedDate(date))
-          .sort(),
-        props: {
-          onChange: handleSelectedImageDate,
-        },
-      },
-      {
-        label: "State",
-        options: ["After Building"],
-      },
-    ],
+  const ExplorerSelectInputs = useMemo(
+    () =>
+      setExplorerInputs(
+        apartmentData,
+        selectedApartment,
+        handleSelectedApartment,
+        handleSelectedImageDate
+      ),
     [
       apartmentData,
       handleSelectedApartment,
       handleSelectedImageDate,
-      selectedApartment.images,
+      selectedApartment,
     ]
   );
 
@@ -116,7 +94,7 @@ export default function Explorer({
     <ExplorerForm onSubmit={handleSubmit}>
       <span>Navigate:</span>
       <ExplorerControls
-        inputs={inputs}
+        inputs={ExplorerSelectInputs}
         isDateSelected={Boolean(selectedDateValue)}
       />
     </ExplorerForm>

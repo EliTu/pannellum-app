@@ -1,21 +1,23 @@
-type ImageDataParameters = 'date' | 'id' | 'url';
+import { ChangeEvent } from "react";
+
+type ImageDataParameters = "date" | "id" | "url";
 export type ApartmentImageData = Record<ImageDataParameters, string>;
 
 export interface ApartmentData {
-    name: string;
-    images: ApartmentImageData[];
+  name: string;
+  images: ApartmentImageData[];
 }
 export interface ApiData {
-    apartments: ApartmentData[];
+  apartments: ApartmentData[];
 }
 
 export interface ExplorerSelectInput {
-    label: string;
-    options: string[];
-    props?: React.SelectHTMLAttributes<HTMLSelectElement>;
+  label: string;
+  options: string[];
+  props?: React.SelectHTMLAttributes<HTMLSelectElement>;
 }
 
 export interface SelectedApartmentData {
-    selectedApartment: ApartmentData;
-    selectedImage?: ApartmentImageData;
+  selectedApartment: ApartmentData;
+  selectedImage?: ApartmentImageData;
 }
