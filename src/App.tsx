@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext, useCallback } from 'react';
 import axios from 'axios';
 import { Pannellum } from 'pannellum-react';
-import { ApartmentData, ApiData, SelectedApartmentData } from './interfaces';
+import { ApiData } from './interfaces';
 import { AppContainer, MainContentContainer } from './AppStyles';
+import { ExplorerContext } from './Context/ExplorerContextProvider';
 import Explorer from './components/Explorer/Explorer';
 import usePoll from './hooks/usePoll';
 
@@ -10,14 +11,15 @@ const URL =
   'https://899qp66n9k.execute-api.eu-west-1.amazonaws.com/default/buildots-equirect-assignment';
 
 function App() {
-  const [apartmentsData, setApartmentsData] = useState<ApartmentData[]>();
-  const [selectedData, setSelectedData] = useState<SelectedApartmentData>();
+  const { apartmentsData, selectedData, setApartmentsData, setSelectedData } =
+    useContext(ExplorerContext);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const { data, status } = await axios.get<ApiData>(URL);
       if (status < 400) {
         const { apartments } = data;
+
         setApartmentsData(apartments);
         setSelectedData((prevData) => ({
           ...prevData,
@@ -29,11 +31,11 @@ function App() {
     } catch (error) {
       console.error(error.message);
     }
-  };
+  }, [setApartmentsData, setSelectedData]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   usePoll(fetchData, 5000);
 
@@ -41,11 +43,7 @@ function App() {
     <AppContainer>
       {apartmentsData && selectedData && (
         <MainContentContainer>
-          <Explorer
-            apartmentData={apartmentsData}
-            selectedData={selectedData}
-            setSelectedData={setSelectedData}
-          />
+          <Explorer />
           {selectedData.selectedImage && (
             <Pannellum
               width="90%"

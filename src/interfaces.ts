@@ -19,3 +19,10 @@ export interface SelectedApartmentData {
   selectedApartment: ApartmentData;
   selectedImage?: ApartmentImageData;
 }
+
+export interface ExplorerContextValues {
+  apartmentsData: ApartmentData[];
+  selectedData: SelectedApartmentData;
+  setApartmentsData: React.Dispatch<React.SetStateAction<ApartmentData[]>>;
+  setSelectedData: React.Dispatch<React.SetStateAction<SelectedApartmentData>>;
+}

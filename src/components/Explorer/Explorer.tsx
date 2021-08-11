@@ -1,17 +1,18 @@
-import React, { ChangeEvent, useMemo, useState, useCallback, FormEvent } from 'react';
+import React, { ChangeEvent, useMemo, useState, useCallback, FormEvent, useContext } from 'react';
 import ExplorerControls from './ExplorerControls';
-import { ApartmentData, ApartmentImageData, SelectedApartmentData } from '../../interfaces';
+import { ApartmentData, ApartmentImageData } from '../../interfaces';
 import formatSelectedDate from '../../utils/formatSelectDate';
 import { ExplorerForm } from './ExplorerStyles';
 import setExplorerInputs from '../../utils/setExplorerInputs';
+import { ExplorerContext } from '../../Context/ExplorerContextProvider';
 
-interface ExplorerProps {
-  apartmentData: ApartmentData[];
-  selectedData: SelectedApartmentData;
-  setSelectedData: React.Dispatch<React.SetStateAction<SelectedApartmentData | undefined>>;
-}
-export default function Explorer({ apartmentData, selectedData, setSelectedData }: ExplorerProps) {
-  const { selectedApartment } = selectedData;
+export default function Explorer() {
+  const {
+    apartmentsData,
+    selectedData: { selectedApartment },
+    setSelectedData,
+  } = useContext(ExplorerContext);
+
   const [selectedApartmentValue, setSelectedApartmentValue] =
     useState<ApartmentData>(selectedApartment);
   const [selectedDateValue, setSelectedDateValue] = useState<ApartmentImageData>();
@@ -19,7 +20,7 @@ export default function Explorer({ apartmentData, selectedData, setSelectedData 
   const handleSelectedApartment = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
       const selected = e.target.value;
-      const newApartment = apartmentData.find(({ name }) => name.includes(selected));
+      const newApartment = apartmentsData.find(({ name }) => name.includes(selected));
       if (newApartment) {
         setSelectedData((prevData) => ({
           ...prevData,
@@ -28,7 +29,7 @@ export default function Explorer({ apartmentData, selectedData, setSelectedData 
         setSelectedApartmentValue(newApartment);
       }
     },
-    [apartmentData, setSelectedData]
+    [apartmentsData, setSelectedData]
   );
 
   const handleSelectedImageDate = useCallback(
@@ -56,12 +57,12 @@ export default function Explorer({ apartmentData, selectedData, setSelectedData 
   const ExplorerSelectInputs = useMemo(
     () =>
       setExplorerInputs(
-        apartmentData,
+        apartmentsData,
         selectedApartment,
         handleSelectedApartment,
         handleSelectedImageDate
       ),
-    [apartmentData, handleSelectedApartment, handleSelectedImageDate, selectedApartment]
+    [apartmentsData, handleSelectedApartment, handleSelectedImageDate, selectedApartment]
   );
 
   return (

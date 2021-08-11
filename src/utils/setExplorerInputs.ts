@@ -6,7 +6,7 @@ import getApartmentNumber from './getApartmentNumber';
 type ChangeEventHandlerType = (e: ChangeEvent<HTMLSelectElement>) => void;
 
 export default function setExplorerInputs(
-  apartmentData: ApartmentData[],
+  apartmentsData: ApartmentData[],
   selectedApartment: ApartmentData,
   handleSelectedApartment: ChangeEventHandlerType,
   handleSelectedImageDate: ChangeEventHandlerType
@@ -18,7 +18,7 @@ export default function setExplorerInputs(
     },
     {
       label: 'Apartment',
-      options: apartmentData.map(({ name }) => getApartmentNumber(name)),
+      options: apartmentsData.map(({ name }) => getApartmentNumber(name)),
       props: {
         onChange: handleSelectedApartment,
       },

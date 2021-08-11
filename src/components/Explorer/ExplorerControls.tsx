@@ -11,8 +11,8 @@ interface ExplorerControlsProps {
 export default function ExplorerControls({ inputs, isDateSelected }: ExplorerControlsProps) {
   return (
     <ControlsContainer>
-      {inputs.map((inputProps) => (
-        <SelectController key={inputProps.label} {...inputProps} />
+      {inputs.map((input) => (
+        <SelectController key={input.label} {...input} />
       ))}
       <ControlButton disabled={!isDateSelected}>Go</ControlButton>
     </ControlsContainer>

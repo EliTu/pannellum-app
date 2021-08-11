@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 export default function usePoll(callback: () => void, delay = 5000) {
   const callbackRef = useRef<() => void>();
