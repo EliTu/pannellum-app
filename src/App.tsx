@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useCallback } from 'react';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import axios from 'axios';
 import { Pannellum } from 'pannellum-react';
 import { ApiData } from './interfaces';
@@ -6,6 +7,7 @@ import { AppContainer, MainContentContainer } from './AppStyles';
 import { ExplorerContext } from './Context/ExplorerContextProvider';
 import Explorer from './components/Explorer/Explorer';
 import usePoll from './hooks/usePoll';
+import Sidebar from './components/Sidebar/Sidebar';
 
 const URL =
   'https://899qp66n9k.execute-api.eu-west-1.amazonaws.com/default/buildots-equirect-assignment';
@@ -41,25 +43,28 @@ function App() {
 
   return (
     <AppContainer>
-      {apartmentsData && selectedData && (
-        <MainContentContainer>
-          <Explorer />
-          {selectedData.selectedImage && (
-            <Pannellum
-              width="90%"
-              height="500px"
-              image={selectedData.selectedImage?.url}
-              pitch={10}
-              yaw={180}
-              hfov={110}
-              autoLoad
-              onLoad={() => {
-                console.log('panorama loaded');
-              }}
-            />
-          )}
-        </MainContentContainer>
-      )}
+      <Router>
+        <Sidebar />
+        {apartmentsData && selectedData && (
+          <MainContentContainer>
+            <Explorer />
+            {selectedData.selectedImage && (
+              <Pannellum
+                width="90%"
+                height="500px"
+                image={selectedData.selectedImage?.url}
+                pitch={10}
+                yaw={180}
+                hfov={110}
+                autoLoad
+                onLoad={() => {
+                  console.log('panorama loaded');
+                }}
+              />
+            )}
+          </MainContentContainer>
+        )}
+      </Router>
     </AppContainer>
   );
 }

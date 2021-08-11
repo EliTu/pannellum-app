@@ -1,6 +1,13 @@
+// Types
 type ImageDataParameters = 'date' | 'id' | 'url';
 export type ApartmentImageData = Record<ImageDataParameters, string>;
 
+// Interfaces
+
+export interface NavigationLink {
+  label: string;
+  to: string;
+}
 export interface ApartmentData {
   name: string;
   images: ApartmentImageData[];
